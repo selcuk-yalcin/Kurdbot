@@ -1,0 +1,25 @@
+# PLACEHOLDER — implementation not written yet
+#
+# Purpose: Run the LibreChat web stack (UI + API + persistence).
+#
+# Services to define here (see SPEC.md §8):
+#
+#   librechat
+#     - image: ghcr.io/danny-avila/librechat:latest
+#     - ports: 3080:3080
+#     - volumes: ./librechat/librechat.yaml → /app/librechat.yaml
+#     - env_file: .env
+#     - depends_on: mongodb, redis
+#
+#   mongodb
+#     - image: mongo:7
+#     - volume: mongo_data → /data/db
+#
+#   redis
+#     - image: redis:7-alpine
+#     - volume: redis_data → /data
+#
+# Named volumes: mongo_data, redis_data
+#
+# Ollama is NOT part of this file — it runs on a separate host.
+# LibreChat reaches Ollama via OLLAMA_BASE_URL in .env

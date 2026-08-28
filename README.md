@@ -116,8 +116,11 @@ Copy `.env.example` to `.env` and fill in real values. Never commit `.env`.
 
 ## Documentation
 
+- **[STRUCTURE.md](./STRUCTURE.md)** — What each file and directory is for (repository map)
 - **[SPEC.md](./SPEC.md)** — Full technical specification, configs, and setup steps
 - **[TODO.md](./TODO.md)** — Implementation checklist
+
+Config files (`docker-compose.yml`, `librechat.yaml`, `Modelfile`, etc.) exist as **placeholders** — they describe what will go where but contain no runnable config yet.
 
 ---
 

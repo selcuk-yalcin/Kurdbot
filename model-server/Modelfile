@@ -1,0 +1,22 @@
+# PLACEHOLDER — Ollama Modelfile (not implemented yet)
+#
+# Purpose: Define the custom model "kurdish-bot" for Kurdish-only replies.
+# Used on the Ollama host, not inside Docker Compose.
+#
+# Steps when implemented (see SPEC.md §6):
+#
+#   1. ollama pull llama3.1:8b
+#   2. ollama create kurdish-bot -f model-server/Modelfile
+#
+# Content to add:
+#
+#   FROM llama3.1:8b
+#
+#   SYSTEM """
+#   Kurdish-only (Kurmancî) assistant system prompt.
+#   User may write in any language; assistant replies only in Kurmancî.
+#   Summarize web search results in Kurdish when needed.
+#   """
+#
+#   PARAMETER temperature 0.7
+#   PARAMETER top_p 0.9

@@ -61,7 +61,8 @@ Track progress for the Kurdish-only LibreChat + Ollama + Tavily stack.
 - [x] **6.1** README.md (architecture, requirements, env table, test checklist)
 - [x] **6.2** SPEC.md (full technical specification)
 - [x] **6.3** TODO.md (this file)
-- [ ] **6.4** Implement repo structure: `docker-compose.yml`, `Modelfile`, `librechat.yaml`, `scripts/setup.sh`
+- [x] **6.4** Repo skeleton + placeholders: `STRUCTURE.md`, `docker-compose.yml`, `.env.example`, `.gitignore`, `librechat/librechat.yaml`, `model-server/Modelfile`, `scripts/setup.sh`
+- [ ] **6.4b** Fill placeholders with real config (Compose, YAML, Modelfile, setup script)
 - [ ] **6.5** Initial commit and push to GitHub
 - [ ] **6.6** Add LICENSE aligned with upstream dependencies
 
@@ -100,4 +101,5 @@ _Add dated notes below as work progresses._
 
 | Date | Note |
 |------|------|
-| — | Project initialized; documentation draft (README, SPEC, TODO) |
+| 2026-08-28 | Project initialized; documentation draft (README, SPEC, TODO) |
+| 2026-08-28 | Repo skeleton created; placeholder files only (see STRUCTURE.md) |

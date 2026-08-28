@@ -1,0 +1,27 @@
+# PLACEHOLDER — LibreChat configuration (not implemented yet)
+#
+# Purpose: Configure how LibreChat talks to Ollama and Tavily.
+# Mount this file into the container at /app/librechat.yaml
+#
+# Sections to implement (see SPEC.md §7.3):
+#
+#   version: 1.1.4
+#
+#   endpoints.ollama
+#     - baseURL: ${OLLAMA_BASE_URL}/v1/
+#     - models.default: [kurdish-bot]
+#     - models.fetch: false
+#     - titleConvo / titleModel: kurdish-bot
+#
+#   modelSpecs
+#     - enforce: true  (lock users to Kurdish preset)
+#     - list[0]: "Kurdish Bot" preset
+#         - model: kurdish-bot
+#         - endpoint: ollama
+#         - system: Kurmancî-only assistant prompt
+#         - tools: tavily_search_results_json (web_search)
+#
+#   tools.tavily
+#     - apiKey: ${TAVILY_API_KEY}
+#
+# Env vars are resolved from .env at runtime by LibreChat.
