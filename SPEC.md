@@ -247,7 +247,7 @@ volumes:
 
 ## 9. Tavily Integration
 
-1. Register at [https://tavily.com](https://tavily.com).
+1. Register at [https://www.tavily.com](https://www.tavily.com).
 2. Create an API key and set `TAVILY_API_KEY` in `.env`.
 3. Define the tool in `librechat.yaml` (see §7.3).
 4. LibreChat executes Tavily when the model emits a tool call for `web_search`.
@@ -303,7 +303,9 @@ These may be added in later versions per [TODO.md](./TODO.md).
 
 ## 14. References
 
-- [LibreChat](https://github.com/danny-avila/LibreChat)
-- [Ollama](https://ollama.com)
-- [Tavily API](https://tavily.com)
-- [LibreChat librechat.yaml docs](https://docs.librechat.ai)
+See **[RESOURCES.md](./RESOURCES.md)** for the full tool list. Key links:
+
+- [LibreChat](https://www.librechat.ai) · [Docs](https://www.librechat.ai/docs) · [GitHub](https://github.com/danny-avila/LibreChat)
+- [Ollama Download](https://ollama.com/download)
+- [Tavily](https://www.tavily.com)
+- [Vast.ai](https://vast.ai) — GPU server rental (model host)

@@ -66,12 +66,12 @@ kurdish-chatbot/
 
 Detailed steps live in [SPEC.md](./SPEC.md). At a high level:
 
-1. **Install Ollama** on the model server and pull `llama3.1:8b`.
+1. **Rent a GPU/CPU server** ([Vast.ai](https://vast.ai) or similar) and install [Ollama](https://ollama.com/download); pull `llama3.1:8b`.
 2. **Create the custom model** `kurdish-bot` from `model-server/Modelfile` (Kurdish-only system prompt).
-3. **Clone LibreChat**, configure `.env` (MongoDB, Redis, Ollama URL, Tavily key, JWT secrets).
+3. **Configure [LibreChat](https://www.librechat.ai)** via Docker; set `.env` (MongoDB, Redis, Ollama URL, Tavily key, JWT secrets).
 4. **Configure** `librechat/librechat.yaml` (Kurdish model preset + Tavily tool).
 5. **Run** `docker compose up` (LibreChat, MongoDB, Redis).
-6. **Register** at [tavily.com](https://tavily.com) and add `TAVILY_API_KEY` to `.env`.
+6. **Register** at [Tavily](https://www.tavily.com) and add `TAVILY_API_KEY` to `.env`.
 7. **Test** at `http://localhost:3080`.
 
 ---
@@ -116,6 +116,7 @@ Copy `.env.example` to `.env` and fill in real values. Never commit `.env`.
 
 ## Documentation
 
+- **[RESOURCES.md](./RESOURCES.md)** — Verified links: Ollama, LibreChat, Tavily, Vast.ai, and other tools
 - **[STRUCTURE.md](./STRUCTURE.md)** — What each file and directory is for (repository map)
 - **[SPEC.md](./SPEC.md)** — Full technical specification, configs, and setup steps
 - **[TODO.md](./TODO.md)** — Implementation checklist

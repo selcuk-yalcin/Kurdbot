@@ -19,7 +19,7 @@ Track progress for the Kurdish-only LibreChat + Ollama + Tavily stack.
 
 ## Phase 2 — LibreChat setup
 
-- [ ] **2.1** Clone [LibreChat](https://github.com/danny-avila/LibreChat) (or vendor into this repo)
+- [ ] **2.1** Set up [LibreChat](https://www.librechat.ai) via Docker (see [RESOURCES.md](./RESOURCES.md))
 - [ ] **2.2** Create `.env` from `.env.example` with all required variables
 - [ ] **2.3** Set `MONGO_URI`, `REDIS_URI`, `OLLAMA_BASE_URL`
 - [ ] **2.4** Generate and set `JWT_SECRET`, `JWT_REFRESH_SECRET`, `CREDS_KEY`, `CREDS_IV`
@@ -39,7 +39,7 @@ Track progress for the Kurdish-only LibreChat + Ollama + Tavily stack.
 
 ## Phase 4 — Tavily web search
 
-- [ ] **4.1** Register at [tavily.com](https://tavily.com) and obtain API key
+- [ ] **4.1** Register at [Tavily](https://www.tavily.com) and obtain API key
 - [ ] **4.2** Set `TAVILY_API_KEY` in `.env`
 - [ ] **4.3** Confirm `tavily_search_results_json` tool in `librechat.yaml`
 - [ ] **4.4** Test with a current-events / weather question in the UI
