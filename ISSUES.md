@@ -1,7 +1,7 @@
 # GitHub Issues List
 
-Snapshot of open issues from [selcuk-yalcin/Kurdbot](https://github.com/selcuk-yalcin/Kurdbot/issues).  
-Synced: **2026-09-07** · **20 open** · **0 closed**
+Snapshot of issues from [selcuk-yalcin/Kurdbot](https://github.com/selcuk-yalcin/Kurdbot/issues).  
+Synced: **2026-09-07** · **17 open** · **3 closed** (#3, #4, #5)
 
 For assignments by person, see [ASSIGNMENTS.md](./ASSIGNMENTS.md).
 
@@ -13,9 +13,9 @@ For assignments by person, see [ASSIGNMENTS.md](./ASSIGNMENTS.md).
 |---|--------|-------|----------|--------|------|
 | 1 | OPEN | Provision model server (Ubuntu 22.04) | @cem-acun | phase-1, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/1) |
 | 2 | OPEN | Implement model-server/Modelfile (Kurdish-only prompt) | @selcuk-yalcin | phase-2, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/2) |
-| 3 | OPEN | Implement docker-compose.yml (LibreChat stack) | @selcuk-yalcin | phase-2, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/3) — **config in repo** |
-| 4 | OPEN | Implement librechat/librechat.yaml (Ollama + Tavily) | @selcuk-yalcin | phase-2, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/4) — **config in repo** |
-| 5 | OPEN | Complete .env.example with all required variables | @selcuk-yalcin | phase-2, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/5) — **config in repo** |
+| 3 | CLOSED | Implement docker-compose.yml (LibreChat stack) | @selcuk-yalcin | phase-2, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/3) — **done** (`dd5201f`) |
+| 4 | CLOSED | Implement librechat/librechat.yaml (Ollama + Tavily) | @selcuk-yalcin | phase-2, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/4) — **done** (`dd5201f`) |
+| 5 | CLOSED | Complete .env.example with all required variables | @selcuk-yalcin | phase-2, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/5) — **done** (`dd5201f`) |
 | 6 | OPEN | Register Tavily account and obtain API key | @cem-acun | phase-4, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/6) |
 | 7 | OPEN | Install Ollama, pull model, create kurdish-bot | @cem-acun | phase-1 | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/7) |
 | 8 | OPEN | Expose Ollama API (OLLAMA_HOST + firewall) | @cem-acun | phase-1 | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/8) |
