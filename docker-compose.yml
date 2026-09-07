@@ -1,25 +1,62 @@
-# PLACEHOLDER — implementation not written yet
+# LibreChat + MongoDB + Redis
+# Ollama runs on a separate host — set OLLAMA_BASE_URL in .env
 #
-# Purpose: Run the LibreChat web stack (UI + API + persistence).
-#
-# Services to define here (see SPEC.md §8):
-#
-#   librechat
-#     - image: ghcr.io/danny-avila/librechat:latest
-#     - ports: 3080:3080
-#     - volumes: ./librechat/librechat.yaml → /app/librechat.yaml
-#     - env_file: .env
-#     - depends_on: mongodb, redis
-#
-#   mongodb
-#     - image: mongo:7
-#     - volume: mongo_data → /data/db
-#
-#   redis
-#     - image: redis:7-alpine
-#     - volume: redis_data → /data
-#
-# Named volumes: mongo_data, redis_data
-#
-# Ollama is NOT part of this file — it runs on a separate host.
-# LibreChat reaches Ollama via OLLAMA_BASE_URL in .env
+# Usage:
+#   cp .env.example .env   # then fill secrets
+#   docker compose up -d
+#   open http://localhost:3080
+
+services:
+  librechat:
+    image: ghcr.io/danny-avila/librechat-dev:latest
+    container_name: kurdbot-librechat
+    ports:
+      - "${LIBRECHAT_PORT:-3080}:3080"
+    env_file:
+      - .env
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3080
+      - MONGO_URI=${MONGO_URI:-mongodb://mongodb:27017/LibreChat}
+      - REDIS_URI=${REDIS_URI:-redis://redis:6379}
+      - USE_REDIS=true
+      - CONFIG_PATH=/app/librechat.yaml
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+    volumes:
+      - ./librechat/librechat.yaml:/app/librechat.yaml:ro
+      - librechat_images:/app/client/public/images
+      - librechat_uploads:/app/uploads
+      - librechat_logs:/app/logs
+    depends_on:
+      mongodb:
+        condition: service_started
+      redis:
+        condition: service_started
+    extra_hosts:
+      # Allows OLLAMA_BASE_URL=http://host.docker.internal:11434 when Ollama is on the same machine
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:7
+    container_name: kurdbot-mongodb
+    volumes:
+      - mongo_data:/data/db
+    command: ["mongod", "--noauth"]
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: kurdbot-redis
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+  redis_data:
+  librechat_images:
+  librechat_uploads:
+  librechat_logs:

@@ -8,14 +8,16 @@ Kurdbot/
 ├── README.md                 # Project overview, quick start, env table, test checklist
 ├── SPEC.md                   # Full technical specification (architecture, configs, security)
 ├── TODO.md                   # Phased implementation checklist
+├── ISSUES.md                 # Full GitHub issues list (snapshot from GitHub)
+├── ASSIGNMENTS.md            # Open issues grouped by assignee (Selçuk / Cem)
 ├── STRUCTURE.md              # This file — directory map and file responsibilities
 │
-├── docker-compose.yml        # [TODO] Orchestrates LibreChat + MongoDB + Redis
-├── .env.example              # [TODO] Template for secrets and service URLs (copy → .env)
+├── docker-compose.yml        # LibreChat + MongoDB + Redis
+├── .env.example              # Template for secrets and service URLs (copy → .env)
 ├── .gitignore                # Files and dirs that must never be committed
 │
 ├── librechat/
-│   └── librechat.yaml        # [TODO] LibreChat endpoints, Kurdish model preset, Tavily tool
+│   └── librechat.yaml        # LibreChat config (Ollama + Kurdish preset + Tavily)
 │
 ├── model-server/
 │   └── Modelfile             # [TODO] Ollama custom model (kurdish-bot from llama3.1:8b)
@@ -33,9 +35,11 @@ Kurdbot/
 | `README.md` | Entry point for humans: architecture, requirements, links | Developers, deployers | Done |
 | `SPEC.md` | Authoritative design doc; config shapes and setup order | Implementers | Done |
 | `TODO.md` | Track what is built vs pending | Project owner | Done |
+| `ISSUES.md` | Full list of GitHub issues (#1–#20) | Anyone tracking work | Done |
+| `ASSIGNMENTS.md` | Issues by person + hand-offs | Selçuk, Cem | Done |
 | `STRUCTURE.md` | Explains layout before code lands | Anyone onboarding | Done |
-| `docker-compose.yml` | Defines `librechat`, `mongodb`, `redis` services, ports, volumes | `docker compose up` | Placeholder |
-| `.env.example` | Documents required env vars with safe placeholders | Copied to `.env` locally | Placeholder |
+| `docker-compose.yml` | Defines `librechat`, `mongodb`, `redis` services, ports, volumes | `docker compose up` | Done |
+| `.env.example` | Documents required env vars with safe placeholders | Copied to `.env` locally | Done |
 | `.gitignore` | Excludes secrets, logs, Docker volume data | Git | Done |
 
 ---
@@ -46,7 +50,7 @@ LibreChat-specific configuration mounted into the container.
 
 | File | Role | Details |
 |------|------|---------|
-| `librechat.yaml` | LibreChat runtime config | Ollama endpoint → `kurdish-bot`; enforce Kurdish-only model spec; register Tavily as `web_search` tool |
+| `librechat.yaml` | LibreChat runtime config | Ollama custom endpoint → `kurdish-bot`; enforce Kurdish-only model spec; Tavily via `webSearch` |
 
 **Mount path in container:** `./librechat/librechat.yaml` → `/app/librechat.yaml`
 

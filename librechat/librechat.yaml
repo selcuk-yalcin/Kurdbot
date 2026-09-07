@@ -1,27 +1,56 @@
-# PLACEHOLDER — LibreChat configuration (not implemented yet)
-#
-# Purpose: Configure how LibreChat talks to Ollama and Tavily.
-# Mount this file into the container at /app/librechat.yaml
-#
-# Sections to implement (see SPEC.md §7.3):
-#
-#   version: 1.1.4
-#
-#   endpoints.ollama
-#     - baseURL: ${OLLAMA_BASE_URL}/v1/
-#     - models.default: [kurdish-bot]
-#     - models.fetch: false
-#     - titleConvo / titleModel: kurdish-bot
-#
-#   modelSpecs
-#     - enforce: true  (lock users to Kurdish preset)
-#     - list[0]: "Kurdish Bot" preset
-#         - model: kurdish-bot
-#         - endpoint: ollama
-#         - system: Kurmancî-only assistant prompt
-#         - tools: tavily_search_results_json (web_search)
-#
-#   tools.tavily
-#     - apiKey: ${TAVILY_API_KEY}
-#
-# Env vars are resolved from .env at runtime by LibreChat.
+# LibreChat config — Kurdish-only bot via Ollama + Tavily web search
+# Docs: https://www.librechat.ai/docs
+# Mounted at /app/librechat.yaml (see docker-compose.yml)
+
+version: 1.2.1
+
+cache: true
+
+# ---------------------------------------------------------------------------
+# Ollama (custom OpenAI-compatible endpoint)
+# Name must start with "Ollama" so LibreChat treats it as an Ollama endpoint.
+# OLLAMA_BASE_URL comes from .env (e.g. http://YOUR_SERVER_IP:11434)
+# ---------------------------------------------------------------------------
+endpoints:
+  custom:
+    - name: "Ollama"
+      apiKey: "ollama"
+      baseURL: "${OLLAMA_BASE_URL}/v1/"
+      models:
+        default:
+          - "kurdish-bot"
+        fetch: false
+      titleConvo: true
+      titleModel: "kurdish-bot"
+      modelDisplayLabel: "Kurdish Bot"
+      dropParams:
+        - "stop"
+        - "user"
+
+# ---------------------------------------------------------------------------
+# Lock UI to the Kurdish-only preset
+# ---------------------------------------------------------------------------
+modelSpecs:
+  enforce: true
+  prioritize: true
+  list:
+    - name: "kurdish-bot-preset"
+      label: "Kurd Bot — Tenê Kurdî"
+      default: true
+      preset:
+        endpoint: "Ollama"
+        model: "kurdish-bot"
+        system: |
+          Tu asîstentekî Kurmancî yî.
+          Bikarhêner bi kîjan zimanî binivîse jî, tu TENÊ bi Kurmancî (Kurdîya Bakur) bersivê didî.
+          Heke tiştekî fêm nekî an jî nizanî, vê yekê jî bi Kurmancî bibêje.
+          Heke agahiyên nû ji înternetê hewce bin, encamên lêgerînê bi Kurmancî kurt bike û rave bike.
+          Tu caran bi Tirkî, Îngilîzî an zimanên din bersivê nede — tenê Kurmancî.
+
+# ---------------------------------------------------------------------------
+# Tavily web search (API key from .env)
+# ---------------------------------------------------------------------------
+webSearch:
+  searchProvider: "tavily"
+  scraperProvider: "tavily"
+  tavilyApiKey: "${TAVILY_API_KEY}"

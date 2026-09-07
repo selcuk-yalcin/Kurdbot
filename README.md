@@ -116,12 +116,14 @@ Copy `.env.example` to `.env` and fill in real values. Never commit `.env`.
 
 ## Documentation
 
+- **[ISSUES.md](./ISSUES.md)** — Full GitHub issues list (synced snapshot)
+- **[ASSIGNMENTS.md](./ASSIGNMENTS.md)** — Open issues by person (Selçuk / Cem)
 - **[RESOURCES.md](./RESOURCES.md)** — Verified links: Ollama, LibreChat, Tavily, Vast.ai, and other tools
 - **[STRUCTURE.md](./STRUCTURE.md)** — What each file and directory is for (repository map)
 - **[SPEC.md](./SPEC.md)** — Full technical specification, configs, and setup steps
 - **[TODO.md](./TODO.md)** — Implementation checklist
 
-Config files (`docker-compose.yml`, `librechat.yaml`, `Modelfile`, etc.) exist as **placeholders** — they describe what will go where but contain no runnable config yet.
+Config files `docker-compose.yml`, `librechat/librechat.yaml`, and `.env.example` are **implemented**. `model-server/Modelfile` and `scripts/setup.sh` are still placeholders.
 
 ---
 

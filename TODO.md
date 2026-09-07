@@ -23,16 +23,16 @@ Track progress for the Kurdish-only LibreChat + Ollama + Tavily stack.
 - [ ] **2.2** Create `.env` from `.env.example` with all required variables
 - [ ] **2.3** Set `MONGO_URI`, `REDIS_URI`, `OLLAMA_BASE_URL`
 - [ ] **2.4** Generate and set `JWT_SECRET`, `JWT_REFRESH_SECRET`, `CREDS_KEY`, `CREDS_IV`
-- [ ] **2.5** Add `librechat/librechat.yaml` (Ollama endpoint, modelSpecs, Tavily tool)
+- [x] **2.5** Add `librechat/librechat.yaml` (Ollama endpoint, modelSpecs, Tavily)
 
 ---
 
 ## Phase 3 — Docker Compose
 
-- [ ] **3.1** Add `docker-compose.yml` (librechat, mongodb, redis)
-- [ ] **3.2** Mount `librechat/librechat.yaml` into the LibreChat container
-- [ ] **3.3** Add `.gitignore` (`.env`, logs, volume data)
-- [ ] **3.4** Add `.env.example` with documented placeholders (no real secrets)
+- [ ] **3.1** Add `docker-compose.yml` (librechat, mongodb, redis) — **done in repo**
+- [ ] **3.2** Mount `librechat/librechat.yaml` into the LibreChat container — **done in repo**
+- [x] **3.3** Add `.gitignore` (`.env`, logs, volume data)
+- [ ] **3.4** Add `.env.example` with documented placeholders (no real secrets) — **done in repo**
 - [ ] **3.5** Run `docker compose up -d` and confirm all services healthy
 
 ---
@@ -41,7 +41,7 @@ Track progress for the Kurdish-only LibreChat + Ollama + Tavily stack.
 
 - [ ] **4.1** Register at [Tavily](https://www.tavily.com) and obtain API key
 - [ ] **4.2** Set `TAVILY_API_KEY` in `.env`
-- [ ] **4.3** Confirm `tavily_search_results_json` tool in `librechat.yaml`
+- [ ] **4.3** Confirm Tavily in `librechat.yaml` (`webSearch`) — **done in repo**
 - [ ] **4.4** Test with a current-events / weather question in the UI
 
 ---
@@ -62,8 +62,8 @@ Track progress for the Kurdish-only LibreChat + Ollama + Tavily stack.
 - [x] **6.2** SPEC.md (full technical specification)
 - [x] **6.3** TODO.md (this file)
 - [x] **6.4** Repo skeleton + placeholders: `STRUCTURE.md`, `docker-compose.yml`, `.env.example`, `.gitignore`, `librechat/librechat.yaml`, `model-server/Modelfile`, `scripts/setup.sh`
-- [ ] **6.4b** Fill placeholders with real config (Compose, YAML, Modelfile, setup script)
-- [ ] **6.5** Initial commit and push to GitHub
+- [x] **6.4b** Fill placeholders: `docker-compose.yml`, `librechat.yaml`, `.env.example` (Modelfile + setup.sh still pending)
+- [x] **6.5** Initial commit and push to GitHub
 - [ ] **6.6** Add LICENSE aligned with upstream dependencies
 
 ---
