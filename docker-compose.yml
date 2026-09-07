@@ -1,10 +1,15 @@
-# LibreChat + MongoDB + Redis
-# Ollama runs on a separate host — set OLLAMA_BASE_URL in .env
+# Local full stack: LibreChat + MongoDB + Redis + Ollama
 #
-# Usage:
-#   cp .env.example .env   # then fill secrets
+# Usage (on your PC):
+#   cp .env.example .env          # fill JWT/CREDS (placeholders OK for local smoke test)
 #   docker compose up -d
+#   docker compose exec ollama ollama pull llama3.2:3b
 #   open http://localhost:3080
+#
+# Local chatbot model: llama3.2:3b (~2 GB) — light enough for most laptops.
+# Production later: kurdish-bot from model-server/Modelfile (llama3.1:8b).
+#
+# OLLAMA_BASE_URL for in-compose Ollama: http://ollama:11434
 
 services:
   librechat:
@@ -21,8 +26,8 @@ services:
       - REDIS_URI=${REDIS_URI:-redis://redis:6379}
       - USE_REDIS=true
       - CONFIG_PATH=/app/librechat.yaml
-      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
-      - TAVILY_API_KEY=${TAVILY_API_KEY}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}
+      - TAVILY_API_KEY=${TAVILY_API_KEY:-}
     volumes:
       - ./librechat/librechat.yaml:/app/librechat.yaml:ro
       - librechat_images:/app/client/public/images
@@ -33,9 +38,28 @@ services:
         condition: service_started
       redis:
         condition: service_started
+      ollama:
+        condition: service_started
     extra_hosts:
-      # Allows OLLAMA_BASE_URL=http://host.docker.internal:11434 when Ollama is on the same machine
       - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: kurdbot-ollama
+    ports:
+      - "${OLLAMA_PORT:-11434}:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+      - ./model-server:/modelfile:ro
+    # Optional NVIDIA GPU (uncomment if you have nvidia-container-toolkit):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
     restart: unless-stopped
 
   mongodb:
@@ -57,6 +81,7 @@ services:
 volumes:
   mongo_data:
   redis_data:
+  ollama_data:
   librechat_images:
   librechat_uploads:
   librechat_logs:

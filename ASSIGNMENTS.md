@@ -60,6 +60,7 @@ Focus: servers, Ollama, Docker runtime, Tavily account, production infra
 
 | Issue | Task | Depends on |
 |-------|------|------------|
+| [#21](https://github.com/selcuk-yalcin/Kurdbot/issues/21) | **Local PC:** Docker stack + Ollama + `llama3.2:3b` chatbot | — (do today) |
 | [#1](https://github.com/selcuk-yalcin/Kurdbot/issues/1) | Provision model server (Ubuntu 22.04) | — |
 | [#6](https://github.com/selcuk-yalcin/Kurdbot/issues/6) | Register Tavily account and obtain API key | — |
 
@@ -93,6 +94,7 @@ Focus: servers, Ollama, Docker runtime, Tavily account, production infra
 
 ### Checklist (Cem)
 
+- [ ] #21 Local Docker stack + `llama3.2:3b` (start today)
 - [ ] #1 Provision model server
 - [ ] #6 Tavily API key
 - [ ] #7 Install Ollama + `kurdish-bot`

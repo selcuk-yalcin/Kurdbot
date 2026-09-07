@@ -1,16 +1,13 @@
-# LibreChat config — Kurdish-only bot via Ollama + Tavily web search
+# LibreChat config — local chatbot via Ollama + optional Tavily
 # Docs: https://www.librechat.ai/docs
-# Mounted at /app/librechat.yaml (see docker-compose.yml)
+#
+# Local model (laptop-friendly): llama3.2:3b
+# Later production model: kurdish-bot (from model-server/Modelfile + llama3.1:8b)
 
 version: 1.2.1
 
 cache: true
 
-# ---------------------------------------------------------------------------
-# Ollama (custom OpenAI-compatible endpoint)
-# Name must start with "Ollama" so LibreChat treats it as an Ollama endpoint.
-# OLLAMA_BASE_URL comes from .env (e.g. http://YOUR_SERVER_IP:11434)
-# ---------------------------------------------------------------------------
 endpoints:
   custom:
     - name: "Ollama"
@@ -18,28 +15,26 @@ endpoints:
       baseURL: "${OLLAMA_BASE_URL}/v1/"
       models:
         default:
+          - "llama3.2:3b"
           - "kurdish-bot"
-        fetch: false
+        fetch: true
       titleConvo: true
-      titleModel: "kurdish-bot"
-      modelDisplayLabel: "Kurdish Bot"
+      titleModel: "llama3.2:3b"
+      modelDisplayLabel: "Kurdish Bot (local)"
       dropParams:
         - "stop"
         - "user"
 
-# ---------------------------------------------------------------------------
-# Lock UI to the Kurdish-only preset
-# ---------------------------------------------------------------------------
 modelSpecs:
   enforce: true
   prioritize: true
   list:
-    - name: "kurdish-bot-preset"
-      label: "Kurd Bot — Tenê Kurdî"
+    - name: "kurdish-local"
+      label: "Kurd Bot (local) — llama3.2:3b"
       default: true
       preset:
         endpoint: "Ollama"
-        model: "kurdish-bot"
+        model: "llama3.2:3b"
         system: |
           Tu asîstentekî Kurmancî yî.
           Bikarhêner bi kîjan zimanî binivîse jî, tu TENÊ bi Kurmancî (Kurdîya Bakur) bersivê didî.
@@ -47,9 +42,6 @@ modelSpecs:
           Heke agahiyên nû ji înternetê hewce bin, encamên lêgerînê bi Kurmancî kurt bike û rave bike.
           Tu caran bi Tirkî, Îngilîzî an zimanên din bersivê nede — tenê Kurmancî.
 
-# ---------------------------------------------------------------------------
-# Tavily web search (API key from .env)
-# ---------------------------------------------------------------------------
 webSearch:
   searchProvider: "tavily"
   scraperProvider: "tavily"
