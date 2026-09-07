@@ -1,95 +1,106 @@
 # Kurdish Chatbot (Kurmancî)
 
-A Kurdish-only (Kurmancî) chatbot built on **LibreChat**, powered by a local or cloud LLM via **Ollama**, with optional **Tavily** web search for up-to-date answers.
+A Kurdish-only (Kurmancî) chatbot built on **LibreChat** + **Ollama** + optional **Tavily**.
+
+**Clarity:** What is already built vs what Cem does → **[WHO-DOES-WHAT.md](./WHO-DOES-WHAT.md)**.
+
+---
+
+## Ready now — one Compose file
+
+Everything for a **local PC** test is in a **single** [`docker-compose.yml`](./docker-compose.yml):
+
+`librechat` + `mongodb` + `redis` + `ollama`
+
+**Local chatbot model:** `llama3.2:3b`
+
+```bash
+git pull
+cp .env.example .env
+docker compose up -d
+docker compose exec ollama ollama pull llama3.2:3b
+# → http://localhost:3080
+```
+
+Cem’s run-and-verify task: **[#21](https://github.com/selcuk-yalcin/Kurdbot/issues/21)**
 
 ---
 
 ## Architecture
 
 ```
-User → LibreChat (Web UI) → Backend API Server → LLM (local/cloud)
-                                              ↘ Tavily Search API (when needed)
+User → LibreChat (Web UI) → Backend API → Ollama (in Compose, or remote later)
+                                       ↘ Tavily Search API (optional)
 ```
 
 | Component | Choice | Notes |
 |-----------|--------|-------|
-| Web UI | LibreChat | Open-source ChatGPT-style interface |
-| LLM | Ollama / vLLM / OpenAI-compatible | Ollama recommended for getting started |
-| Model | Llama 3.1 8B / Qwen2.5 / Mistral | Llama 3.1 recommended for Kurdish |
-| Web Search | Tavily API | Used when the model needs current information |
-| Database | MongoDB | Required by LibreChat |
-| Cache | Redis | Required by LibreChat |
-| Containers | Docker Compose | Orchestrates all services |
+| Web UI | LibreChat | In Compose |
+| LLM | Ollama | In Compose for local; remote GPU later |
+| Local model | `llama3.2:3b` | Laptop-friendly smoke test |
+| Production model | `kurdish-bot` (`llama3.1:8b`) | After Modelfile #2 + server #7 |
+| Web Search | Tavily | Optional; key from Cem #6 |
+| Database | MongoDB 7 | In Compose |
+| Cache | Redis 7 | In Compose |
 
 ---
 
 ## System Requirements
 
-### Server (for running the model)
+### Local PC (issue #21)
+
+- Docker Desktop or Docker Engine + Compose
+- ~8 GB RAM recommended
+- ~5 GB disk for images + `llama3.2:3b`
+
+### Later — model server (issues #1, #7)
 
 | Resource | Minimum | Recommended |
 |----------|---------|-------------|
 | RAM | 16 GB (8B model) | 32 GB |
-| GPU | Optional | NVIDIA with CUDA 12+ for speed |
+| GPU | Optional | NVIDIA with CUDA 12+ |
 | Disk | 20–50 GB | For model weights |
 | OS | Ubuntu 22.04 | LTS |
 
-### Local development
-
-- Docker & Docker Compose
-- Node.js 18+
-- Git
-
 ---
 
-## Repository Structure (planned)
+## Repository Structure
 
 ```
-kurdish-chatbot/
-├── docker-compose.yml
+Kurdbot/
+├── docker-compose.yml      # ✅ single stack (LibreChat + Mongo + Redis + Ollama)
 ├── .env.example
-├── .gitignore
+├── WHO-DOES-WHAT.md        # Selçuk ready vs Cem tasks
+├── ASSIGNMENTS.md
+├── ISSUES.md
 ├── README.md
 ├── SPEC.md
 ├── TODO.md
+├── STRUCTURE.md
+├── RESOURCES.md
 ├── librechat/
-│   └── librechat.yaml          # LibreChat config
+│   └── librechat.yaml
 ├── model-server/
-│   └── Modelfile               # Ollama custom model
+│   └── Modelfile           # still placeholder (#2)
 └── scripts/
-    └── setup.sh
+    ├── pull-local-model.sh # ✅
+    └── setup.sh            # placeholder (#9)
 ```
-
----
-
-## Quick Start (overview)
-
-Detailed steps live in [SPEC.md](./SPEC.md). At a high level:
-
-1. **Rent a GPU/CPU server** ([Vast.ai](https://vast.ai) or similar) and install [Ollama](https://ollama.com/download); pull `llama3.1:8b`.
-2. **Create the custom model** `kurdish-bot` from `model-server/Modelfile` (Kurdish-only system prompt).
-3. **Configure [LibreChat](https://www.librechat.ai)** via Docker; set `.env` (MongoDB, Redis, Ollama URL, Tavily key, JWT secrets).
-4. **Configure** `librechat/librechat.yaml` (Kurdish model preset + Tavily tool).
-5. **Run** `docker compose up` (LibreChat, MongoDB, Redis).
-6. **Register** at [Tavily](https://www.tavily.com) and add `TAVILY_API_KEY` to `.env`.
-7. **Test** at `http://localhost:3080`.
 
 ---
 
 ## Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `MONGO_URI` | MongoDB connection string | `mongodb://mongodb:27017/LibreChat` |
-| `REDIS_URI` | Redis connection string | `redis://redis:6379` |
-| `OLLAMA_BASE_URL` | Ollama API base URL | `http://YOUR_SERVER_IP:11434` |
-| `TAVILY_API_KEY` | Tavily search API key | `tvly-...` |
-| `JWT_SECRET` | JWT signing secret | Long random string |
-| `JWT_REFRESH_SECRET` | JWT refresh secret | Another long random string |
-| `CREDS_KEY` | Encryption key (32 chars) | 32-character key |
-| `CREDS_IV` | Encryption IV (16 chars) | 16-character IV |
+| Variable | Description | Local example |
+|----------|-------------|-----------------|
+| `MONGO_URI` | MongoDB | `mongodb://mongodb:27017/LibreChat` |
+| `REDIS_URI` | Redis | `redis://redis:6379` |
+| `OLLAMA_BASE_URL` | Ollama API | `http://ollama:11434` (in Compose) |
+| `TAVILY_API_KEY` | Tavily (optional at first) | from #6 |
+| `JWT_SECRET` / `JWT_REFRESH_SECRET` | Auth | `openssl rand -hex 32` |
+| `CREDS_KEY` / `CREDS_IV` | Encryption (32 / 16 chars) | openssl |
 
-Copy `.env.example` to `.env` and fill in real values. Never commit `.env`.
+Copy `.env.example` → `.env`. Never commit `.env`.
 
 ---
 
@@ -97,36 +108,33 @@ Copy `.env.example` to `.env` and fill in real values. Never commit `.env`.
 
 | # | Check | Command / URL |
 |---|--------|----------------|
-| 1 | Ollama running | `curl http://SERVER:11434/api/tags` |
-| 2 | `kurdish-bot` model exists | `ollama list` |
-| 3 | MongoDB healthy | `docker compose logs mongodb` |
-| 4 | LibreChat UI loads | `http://localhost:3080` |
-| 5 | Replies in Kurdish only | Ask in any language via UI |
-| 6 | Tavily web search | Ask a current-events question (e.g. weather) |
+| 1 | Containers up | `docker compose ps` |
+| 2 | Model present | `docker compose exec ollama ollama list` |
+| 3 | Ollama API | `curl http://localhost:11434/api/tags` |
+| 4 | LibreChat UI | `http://localhost:3080` |
+| 5 | Chat reply | Send any message in UI |
 
 ---
 
 ## Behavior
 
-- The assistant **only responds in Kurmancî (Northern Kurdish)**, regardless of the user's input language.
-- When fresh information is needed, the model may call **Tavily**; results are summarized in Kurdish.
-- Model preset and system prompts enforce Kurdish-only output (see [SPEC.md](./SPEC.md)).
+- System prompt asks for **Kurmancî-only** replies (quality on `llama3.2:3b` may be weak — OK for smoke test).
+- Production Kurdish quality comes with `kurdish-bot` / `llama3.1:8b` later.
 
 ---
 
 ## Documentation
 
-- **[ISSUES.md](./ISSUES.md)** — Full GitHub issues list (synced snapshot)
-- **[ASSIGNMENTS.md](./ASSIGNMENTS.md)** — Open issues by person (Selçuk / Cem)
-- **[RESOURCES.md](./RESOURCES.md)** — Verified links: Ollama, LibreChat, Tavily, Vast.ai, and other tools
-- **[STRUCTURE.md](./STRUCTURE.md)** — What each file and directory is for (repository map)
-- **[SPEC.md](./SPEC.md)** — Full technical specification, configs, and setup steps
-- **[TODO.md](./TODO.md)** — Implementation checklist
-
-Config files `docker-compose.yml`, `librechat/librechat.yaml`, and `.env.example` are **implemented**. `model-server/Modelfile` and `scripts/setup.sh` are still placeholders.
+- **[WHO-DOES-WHAT.md](./WHO-DOES-WHAT.md)** — Ready stack vs Cem’s issues (start here)
+- **[ISSUES.md](./ISSUES.md)** — Full GitHub issues list
+- **[ASSIGNMENTS.md](./ASSIGNMENTS.md)** — Issues by person
+- **[RESOURCES.md](./RESOURCES.md)** — External links
+- **[STRUCTURE.md](./STRUCTURE.md)** — File map
+- **[SPEC.md](./SPEC.md)** — Technical specification
+- **[TODO.md](./TODO.md)** — Checklist
 
 ---
 
 ## License
 
-TBD — align with LibreChat and upstream dependencies when implementing.
+TBD — issue [#19](https://github.com/selcuk-yalcin/Kurdbot/issues/19).

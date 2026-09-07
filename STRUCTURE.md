@@ -12,12 +12,17 @@ Kurdbot/
 ├── ASSIGNMENTS.md            # Open issues grouped by assignee (Selçuk / Cem)
 ├── STRUCTURE.md              # This file — directory map and file responsibilities
 │
-├── docker-compose.yml        # LibreChat + MongoDB + Redis
-├── .env.example              # Template for secrets and service URLs (copy → .env)
-├── .gitignore                # Files and dirs that must never be committed
-│
-├── librechat/
-│   └── librechat.yaml        # LibreChat config (Ollama + Kurdish preset + Tavily)
+├── docker-compose.yml        # ✅ Single stack: LibreChat + MongoDB + Redis + Ollama
+├── .env.example              # Template for secrets (copy → .env)
+├── .gitignore
+├── WHO-DOES-WHAT.md          # Ready Compose vs Cem’s issue tasks
+├── ASSIGNMENTS.md
+├── ISSUES.md
+├── README.md
+├── SPEC.md
+├── TODO.md
+├── STRUCTURE.md
+├── RESOURCES.md
 │
 ├── model-server/
 │   └── Modelfile             # [TODO] Ollama custom model (kurdish-bot from llama3.1:8b)
@@ -38,7 +43,8 @@ Kurdbot/
 | `ISSUES.md` | Full list of GitHub issues (#1–#20) | Anyone tracking work | Done |
 | `ASSIGNMENTS.md` | Issues by person + hand-offs | Selçuk, Cem | Done |
 | `STRUCTURE.md` | Explains layout before code lands | Anyone onboarding | Done |
-| `docker-compose.yml` | Defines `librechat`, `mongodb`, `redis` services, ports, volumes | `docker compose up` | Done |
+| `docker-compose.yml` | **Single** stack: librechat, mongodb, redis, ollama | `docker compose up` | Done |
+| `WHO-DOES-WHAT.md` | Ready work vs Cem’s tasks | Team | Done |
 | `.env.example` | Documents required env vars with safe placeholders | Copied to `.env` locally | Done |
 | `.gitignore` | Excludes secrets, logs, Docker volume data | Git | Done |
 
