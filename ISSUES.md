@@ -31,7 +31,7 @@ For assignments by person, see [ASSIGNMENTS.md](./ASSIGNMENTS.md).
 | 18 | OPEN | Production: monitoring and log rotation | @cem-acun | phase-7, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/18) |
 | 19 | OPEN | Add LICENSE file aligned with upstream dependencies | @selcuk-yalcin | documentation, phase-6, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/19) |
 | 20 | OPEN | Implementation roadmap — waves, owners, and parallel work | @selcuk-yalcin, @cem-acun | documentation | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/20) |
-| 21 | OPEN | Local PC: run full Docker stack with Ollama + llama3.2:3b | @cem-acun | phase-1, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/21) |
+| 21 | OPEN | Cem: own Ollama compose — run llama3.2:3b on your PC | @cem-acun | phase-1, parallel | [Issue](https://github.com/selcuk-yalcin/Kurdbot/issues/21) |
 
 ---
 
@@ -65,7 +65,7 @@ For assignments by person, see [ASSIGNMENTS.md](./ASSIGNMENTS.md).
 | 16 | Production deploy: nginx/Caddy reverse proxy + SSL |
 | 17 | Production: MongoDB backup strategy |
 | 18 | Production: monitoring and log rotation |
-| 21 | Local PC: run full Docker stack with Ollama + llama3.2:3b |
+| 21 | Cem: own Ollama compose — run llama3.2:3b on your PC |
 
 ### Shared (1)
 

@@ -1,15 +1,12 @@
-# Local full stack: LibreChat + MongoDB + Redis + Ollama
+# Selçuk / app stack ONLY — LibreChat + MongoDB + Redis
+# Ollama is NOT here. Cem owns Ollama → see model-server/docker-compose.yml (#21)
 #
-# Usage (on your PC):
-#   cp .env.example .env          # fill JWT/CREDS (placeholders OK for local smoke test)
+# Usage:
+#   cp .env.example .env
+#   # Set OLLAMA_BASE_URL to wherever Cem's Ollama is reachable
+#   # e.g. http://host.docker.internal:11434  (Ollama on same PC)
 #   docker compose up -d
-#   docker compose exec ollama ollama pull llama3.2:3b
 #   open http://localhost:3080
-#
-# Local chatbot model: llama3.2:3b (~2 GB) — light enough for most laptops.
-# Production later: kurdish-bot from model-server/Modelfile (llama3.1:8b).
-#
-# OLLAMA_BASE_URL for in-compose Ollama: http://ollama:11434
 
 services:
   librechat:
@@ -26,7 +23,7 @@ services:
       - REDIS_URI=${REDIS_URI:-redis://redis:6379}
       - USE_REDIS=true
       - CONFIG_PATH=/app/librechat.yaml
-      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://ollama:11434}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
       - TAVILY_API_KEY=${TAVILY_API_KEY:-}
     volumes:
       - ./librechat/librechat.yaml:/app/librechat.yaml:ro
@@ -38,28 +35,9 @@ services:
         condition: service_started
       redis:
         condition: service_started
-      ollama:
-        condition: service_started
     extra_hosts:
+      # Reach Ollama on the host machine (Cem's model-server compose)
       - "host.docker.internal:host-gateway"
-    restart: unless-stopped
-
-  ollama:
-    image: ollama/ollama:latest
-    container_name: kurdbot-ollama
-    ports:
-      - "${OLLAMA_PORT:-11434}:11434"
-    volumes:
-      - ollama_data:/root/.ollama
-      - ./model-server:/modelfile:ro
-    # Optional NVIDIA GPU (uncomment if you have nvidia-container-toolkit):
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: all
-    #           capabilities: [gpu]
     restart: unless-stopped
 
   mongodb:
@@ -81,7 +59,6 @@ services:
 volumes:
   mongo_data:
   redis_data:
-  ollama_data:
   librechat_images:
   librechat_uploads:
   librechat_logs:

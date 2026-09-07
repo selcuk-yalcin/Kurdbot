@@ -1,81 +1,49 @@
 # Task Assignments by Person
 
-**Read first:** [WHO-DOES-WHAT.md](./WHO-DOES-WHAT.md) — ready Compose stack vs open tasks.
-
-**Repo issues:** https://github.com/selcuk-yalcin/Kurdbot/issues  
-**Full list:** [ISSUES.md](./ISSUES.md)
+**Read first:** [WHO-DOES-WHAT.md](./WHO-DOES-WHAT.md)
 
 ---
 
-## Split (simple)
+## Cem (`@cem-acun`) — owns Ollama
 
-| Lane | Owner | What |
-|------|-------|------|
-| **A — Ready** | Selçuk (done) | One `docker-compose.yml` + yaml + `.env.example` |
-| **B — Run & ops** | **Cem** | Run stack (#21), Tavily (#6), later server (#1/#7/#8) |
-| **C — Follow-up** | Selçuk | Modelfile (#2), LICENSE (#19), Kurdish QA (#13) |
+**His Compose file:** [`model-server/docker-compose.yml`](./model-server/docker-compose.yml)
 
----
-
-## Cem Acun (`@cem-acun`) — do these
-
-### Today
-
-| Issue | Task |
-|-------|------|
-| [#21](https://github.com/selcuk-yalcin/Kurdbot/issues/21) | Run `docker compose up` on your PC + pull `llama3.2:3b` + chat works |
-| [#6](https://github.com/selcuk-yalcin/Kurdbot/issues/6) | (Optional same day) Tavily API key → share with Selçuk |
-
-### Later (after #21 works)
-
-| Issue | Task |
-|-------|------|
-| [#1](https://github.com/selcuk-yalcin/Kurdbot/issues/1) | Provision bigger/GPU server |
-| [#7](https://github.com/selcuk-yalcin/Kurdbot/issues/7) | Production `kurdish-bot` model |
-| [#8](https://github.com/selcuk-yalcin/Kurdbot/issues/8) | Expose Ollama API safely |
-| [#11](https://github.com/selcuk-yalcin/Kurdbot/issues/11)–[#12](https://github.com/selcuk-yalcin/Kurdbot/issues/12) | Integration checks |
-| [#14](https://github.com/selcuk-yalcin/Kurdbot/issues/14) | Tavily QA |
-| [#16](https://github.com/selcuk-yalcin/Kurdbot/issues/16)–[#18](https://github.com/selcuk-yalcin/Kurdbot/issues/18) | Production SSL / backup / monitoring |
+| Priority | Issue | Task |
+|----------|-------|------|
+| Today | [#21](https://github.com/selcuk-yalcin/Kurdbot/issues/21) | Run **his** Ollama compose + pull `llama3.2:3b` |
+| Easy | [#6](https://github.com/selcuk-yalcin/Kurdbot/issues/6) | Tavily API key |
+| Later | [#1](https://github.com/selcuk-yalcin/Kurdbot/issues/1) | Bigger/GPU server |
+| Later | [#7](https://github.com/selcuk-yalcin/Kurdbot/issues/7) | `kurdish-bot` production model |
+| Later | [#8](https://github.com/selcuk-yalcin/Kurdbot/issues/8) | Expose Ollama safely |
+| Later | #11–#14, #16–#18 | Integration + production |
 
 ### Checklist (Cem)
 
-- [ ] #21 Local Docker stack + `llama3.2:3b`
-- [ ] #6 Tavily API key
-- [ ] #1 Provision model server
-- [ ] #7 Install Ollama + `kurdish-bot`
-- [ ] #8 Expose Ollama API
-- [ ] #11 / #12 Integration
-- [ ] #14 Tavily QA
-- [ ] #16–#18 Production
+- [ ] #21 Own Ollama compose + `llama3.2:3b`
+- [ ] #6 Tavily key
+- [ ] #1 Server
+- [ ] #7 / #8 Production Ollama
+- [ ] #11–#14, #16–#18
 
 ---
 
-## Selçuk Yalçın (`@selcuk-yalcin`)
+## Selçuk (`@selcuk-yalcin`) — owns app stack
 
-### Done (Compose lane)
+**His Compose file:** [`docker-compose.yml`](./docker-compose.yml) (no Ollama)
 
-- [x] #3 `docker-compose.yml` (now includes Ollama)
+### Done
+
+- [x] #3 App `docker-compose.yml`
 - [x] #4 `librechat.yaml`
 - [x] #5 `.env.example`
 
-### Still open
+### Open
 
-| Issue | Task |
-|-------|------|
-| [#2](https://github.com/selcuk-yalcin/Kurdbot/issues/2) | `Modelfile` for production `kurdish-bot` |
-| [#9](https://github.com/selcuk-yalcin/Kurdbot/issues/9) | `setup.sh` |
-| [#10](https://github.com/selcuk-yalcin/Kurdbot/issues/10) | Real `.env` secrets (after #6) |
-| [#13](https://github.com/selcuk-yalcin/Kurdbot/issues/13) | Kurdish-only QA |
-| [#15](https://github.com/selcuk-yalcin/Kurdbot/issues/15) | Quality notes |
-| [#19](https://github.com/selcuk-yalcin/Kurdbot/issues/19) | LICENSE |
-
----
-
-## Shared
-
-| Issue | Task |
-|-------|------|
-| [#20](https://github.com/selcuk-yalcin/Kurdbot/issues/20) | Roadmap meta |
+- [ ] #2 Modelfile
+- [ ] #9 setup.sh
+- [ ] #10 Real `.env`
+- [ ] #13 / #15 Kurdish QA
+- [ ] #19 LICENSE
 
 ---
 
@@ -83,7 +51,6 @@
 
 | From | To | What |
 |------|-----|------|
-| Selçuk (Compose ready) | Cem #21 | Just run the stack — no redesign |
-| Cem #6 | Selçuk #10 | Tavily key (secure channel) |
-| Selçuk #2 | Cem #7 | Modelfile on `main` before production model |
-| Cem #21 OK | Team | Then decide on GPU server (#1) |
+| Cem #21 | Selçuk / `.env` | Ollama reachable at `localhost:11434` |
+| Cem #6 | Selçuk #10 | Tavily key |
+| Selçuk #2 | Cem #7 | Modelfile ready for `kurdish-bot` |

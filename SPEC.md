@@ -19,8 +19,9 @@
 | §7.2 | `.env.example` template | ✅ Done (#5 closed) |
 | §7.2 | Real `.env` with secrets | ❌ Pending (#10) |
 | §7.3 | `librechat/librechat.yaml` | ✅ Done (#4 closed) |
-| §8 | `docker-compose.yml` (LibreChat + Mongo + Redis + **Ollama**) | ✅ Done (#3; Ollama added for local) |
-| §8 local | Local chatbot model `llama3.2:3b` | ✅ Configured — run via [#21](https://github.com/selcuk-yalcin/Kurdbot/issues/21) |
+| §8 | Root `docker-compose.yml` (LibreChat + Mongo + Redis only) | ✅ Done (#3) — Ollama removed (Cem owns it) |
+| §8 Cem | `model-server/docker-compose.yml` (Ollama) | 👤 Cem task [#21](https://github.com/selcuk-yalcin/Kurdbot/issues/21) |
+| §8 local | Local model `llama3.2:3b` | 👤 Cem pulls in #21 |
 | §9 | Tavily in `librechat.yaml` | ✅ Done |
 | §9 | Tavily API key + live search test | ❌ Pending (#6, #14) |
 | §10 | Security practices documented | ✅ Done |
